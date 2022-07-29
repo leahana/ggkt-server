@@ -5,7 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
-import { title } from '@/settings'
+// import { title } from '@/settings'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -84,25 +84,19 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
-    path: '/example',
+    path: '/subject',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    redirect: '/subject/list',
+    name: '课程分类管理',
+    alwaysShow: true,
+    meta: { title: '课程分类管理', icon: 'example' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'list',
+        name: '课程分类列表',
+        component: () => import('@/views/vod/subject/list'),
+        meta: { title: '课程分类列表', icon: 'table' }
       }
     ]
   },
