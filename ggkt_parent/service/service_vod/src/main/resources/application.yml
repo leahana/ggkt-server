@@ -1,0 +1,44 @@
+server:
+  # 服务器端口
+  port: 8301
+spring:
+  application:
+    # 服务名
+    name: service_vod
+  profiles:
+    # 环境配置： dev test prod
+    active: dev
+# 数据库链接信息
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/glkt_vod?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: r00t123!@#
+# 返回的json全局时间格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 125.124.10.132:8848
+#      config:
+#        enabled: false
+#        server-addr: 125.124.10.132:8848
+#        file-extension: yml
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+# mybatis-plus日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+# 阿里云Oss服务配置类
+ggkt:
+  oss:
+    accessId: LTAI5t8YE9eiBqdMX8uZG2oY
+    accessSecret: HYyoSjMnaHHRDMoIoyVhODWxw1U6uG
+    bucketName: ggkt-leahana
+    url: https://ggkt-leahana.oss-cn-hangzhou.aliyuncs.com/
+    endpoint: https://oss-cn-hangzhou.aliyuncs.com
