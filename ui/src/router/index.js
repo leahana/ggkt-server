@@ -34,7 +34,7 @@ import Layout from '@/layout'
 export const constantRoutes = [
   {
     path: '/login',
-    component: () => import('@/views/login/index'),
+    component: () => import('@/views/login'),
     hidden: true
   },
 
@@ -51,7 +51,7 @@ export const constantRoutes = [
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/dashboard'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
@@ -108,7 +108,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'Form',
-        component: () => import('@/views/form/index'),
+        component: () => import('@/views/form'),
         meta: { title: 'Form', icon: 'form' }
       }
     ]
@@ -126,7 +126,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
+        component: () => import('@/views/nested/menu1'), // Parent router-view
         name: 'Menu1',
         meta: { title: 'Menu1' },
         children: [
@@ -166,7 +166,7 @@ export const constantRoutes = [
       },
       {
         path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
+        component: () => import('@/views/nested/menu2'),
         name: 'Menu2',
         meta: { title: 'menu2' }
       }
