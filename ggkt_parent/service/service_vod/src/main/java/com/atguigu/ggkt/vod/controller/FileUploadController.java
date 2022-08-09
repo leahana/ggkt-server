@@ -4,6 +4,7 @@ import com.atguigu.ggkt.interfacle.Result;
 import com.atguigu.ggkt.vod.service.FileUploadService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,9 @@ public class FileUploadController {
 
     @ApiOperation("文件上传")
     @PostMapping("upload")
-    public Result uploadFile(MultipartFile file) {
+    public Result uploadFile(
+            @ApiParam(value = "文件")
+            MultipartFile file) {
         if (file.isEmpty()) {
             return Result.fail(null).message("文件上传失败");
         }

@@ -8,8 +8,10 @@ import com.atguigu.ggkt.vo.vod.CourseQueryVo;
 import com.atguigu.ggkt.vo.vod.CourseVo;
 import com.atguigu.ggkt.vo.vod.TeacherQueryVo;
 import com.atguigu.ggkt.vod.service.CourseService;
+import com.baomidou.mybatisplus.extension.conditions.update.UpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -48,8 +51,8 @@ public class CourseController {
                               @PathVariable Long page,
                               @ApiParam(name = "limit", value = "每页记录数", required = true)
                               @PathVariable Long limit,
-                              @ApiParam(name = "courseVo", value = "条件课程Vo对象", required = false)
-                              @RequestBody(required = false) CourseQueryVo courseQueryVo) {
+                              @ApiParam(name = "courseVo", value = "查询对象", required = false)
+                                      CourseQueryVo courseQueryVo) {
 
         Page<Course> pageParam = new Page<>(page, limit);
 
@@ -58,13 +61,40 @@ public class CourseController {
         return Result.ok(map);
     }
 
-    @ApiOperation("新增")
+    @ApiOperation("新增课程")
     @PostMapping("save")
-    public Result save(
-            @ApiParam(name = "courseVo", value = "新增课程Vo对象", required = false)
+    public Result save(@ApiParam(name = "courseVo", value = "新增课程Vo对象", required = false)
             @RequestBody(required = false) CourseFormVo courseFormVo) {
         Long courseId = courseService.saveCourseInfo(courseFormVo);
         return Result.ok(courseId);
+    }
+
+    /**
+     * 获取课程信息
+     * @param id 课程id
+     * @return 课程信息
+     */
+    @ApiOperation("获取课程信息")
+    @GetMapping("getCourseInfo/{id}")
+    public Result getCourseInfo(
+            @ApiParam(value = "获取课程信息")
+            @PathVariable Long id){
+        CourseFormVo courseInfo = courseService.getCourseInfo(id);
+        return Result.ok(courseInfo);
+    }
+
+    /**
+     * 修改课程
+     * @param courseFormVo 课程信息
+     */
+    @ApiOperation("更新课程信息")
+    @PutMapping("update")
+    public Result update(
+            @ApiParam("课程信息")
+            @RequestBody CourseFormVo courseFormVo){
+       courseService.updateCourseId(courseFormVo);
+        return Result.ok(courseFormVo.getId());
+
     }
 }
 

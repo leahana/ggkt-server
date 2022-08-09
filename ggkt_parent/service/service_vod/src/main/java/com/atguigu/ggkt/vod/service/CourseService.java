@@ -21,4 +21,8 @@ public interface CourseService extends IService<Course> {
     Map<String, Object> pageCourses(Page<Course> pageParam, CourseQueryVo courseQueryVo);
 
     Long saveCourseInfo(CourseFormVo courseFormVo);
+
+    CourseFormVo getCourseInfo(Long id);
+
+    void updateCourseId(CourseFormVo courseFormVo);
 }

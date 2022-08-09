@@ -3,12 +3,17 @@ package com.atguigu.ggkt.vod.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.atguigu.ggkt.model.vod.Course;
 import com.atguigu.ggkt.model.vod.CourseDescription;
+import com.atguigu.ggkt.model.vod.Subject;
+import com.atguigu.ggkt.model.vod.Teacher;
 import com.atguigu.ggkt.vo.vod.CourseFormVo;
 import com.atguigu.ggkt.vo.vod.CourseQueryVo;
 import com.atguigu.ggkt.vod.mapper.CourseMapper;
 import com.atguigu.ggkt.vod.service.CourseDescriptionService;
 import com.atguigu.ggkt.vod.service.CourseService;
+import com.atguigu.ggkt.vod.service.SubjectService;
+import com.atguigu.ggkt.vod.service.TeacherService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
@@ -19,7 +24,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 /**
  * <p>
@@ -31,6 +35,12 @@ import java.util.Queue;
  */
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
+
+    @Autowired
+    private TeacherService teacherService;
+
+    @Autowired
+    private SubjectService subjectService;
 
 
     @Autowired
@@ -46,22 +56,25 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         Long teacherId = courseQueryVo.getTeacherId();
         // step2: 判断条件是否为空，封装条件
         QueryWrapper<Course> wrapper = new QueryWrapper<>();
-        wrapper.eq(StringUtils.isNotEmpty(title), "title", title)
-                .eq(ObjectUtil.isNotNull(subjectParentId), "subjectParentId", subjectParentId)
-                .eq(ObjectUtil.isNotNull(subjectId), "subjectId", subjectId)
-                .eq(ObjectUtil.isNotNull(teacherId), "teacherId", teacherId);
+        wrapper.eq(ObjectUtil.isNotNull(subjectParentId), "subject_parent_id", subjectParentId)
+                .eq(ObjectUtil.isNotNull(subjectId), "subject_id", subjectId)
+                .eq(ObjectUtil.isNotNull(teacherId), "teacher_id", teacherId)
+                .like(StringUtils.isNotEmpty(title), "title", title);
+
         // step3：条件查询分页
         Page<Course> coursePage = baseMapper.selectPage(pageParam, wrapper);
         List<Course> records = coursePage.getRecords();
         long totalCount = coursePage.getTotal();
         long totalPage = coursePage.getPages();
         // step4：封装数据
+        //遍历封装讲师和分类名称
+        records.forEach(this::getTeacherOrSubjectName);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("records",records);
-        map.put("totalCount",totalCount);
-        map.put("totalPage",totalPage);
+        map.put("records", records);
+        map.put("totalCount", totalCount);
+        map.put("totalPage", totalPage);
 
 
         return map;
@@ -69,6 +82,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     /**
      * 保存课程基本信息
+     *
      * @param courseFormVo 课程vo对象
      * @return Long courseId 课程id
      */
@@ -76,8 +90,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public Long saveCourseInfo(CourseFormVo courseFormVo) {
 
         // 保存课程基本信息
-        Course course=new Course();
-        BeanUtils.copyProperties(courseFormVo,course);
+        Course course = new Course();
+        BeanUtils.copyProperties(courseFormVo, course);
         baseMapper.insert(course);
 
         // 保存课程详细信息
@@ -87,5 +101,77 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         descriptionService.save(courseDescription);
 
         return course.getId();
+    }
+
+    /**
+     * 根据id 查询课程基本信息和描述信息
+     * @param id 课程id
+     * @return vo结果
+     */
+    @Override
+    public CourseFormVo getCourseInfo(Long id) {
+        // 课程基本信息
+        Course course = baseMapper.selectById(id);
+
+        if(ObjectUtil.isNull(course)) {
+            return null;
+        }
+
+        // 课程描述信息
+        CourseDescription courseDescription = descriptionService.getByCourseId(id);
+
+        // 封 装
+        CourseFormVo courseFormVo = new CourseFormVo();
+        BeanUtils.copyProperties(course,courseFormVo);
+        if (ObjectUtil.isNotNull(courseDescription)){
+            courseFormVo.setDescription(courseDescription.getDescription());
+        }
+        return courseFormVo;
+    }
+
+    /**
+     * 更新课程基本信息和描述信息
+     * @param courseFormVo 封装的课程信息
+     */
+    @Override
+    public void updateCourseId(CourseFormVo courseFormVo) {
+        // 修改课程信息
+        Course course = new Course();
+        BeanUtils.copyProperties(courseFormVo,course);
+
+        baseMapper.updateById(course);
+
+        // 修改课程描述信息
+        CourseDescription courseDescription = descriptionService.getByCourseId(course.getId());
+        if (ObjectUtil.isNotNull(courseDescription)){
+            courseDescription.setDescription(courseFormVo.getDescription());
+            courseDescription.setId(course.getId());
+            descriptionService.updateById(courseDescription);
+        }else {
+            // 保存课程详细信息
+            courseDescription = new CourseDescription();
+            courseDescription.setDescription(courseFormVo.getDescription());
+            courseDescription.setCourseId(course.getId());
+            descriptionService.save(courseDescription);
+        }
+
+    }
+
+    // 获取讲师和分类名称
+    private void getTeacherOrSubjectName(Course course) {
+        //查询讲师名称
+        Teacher teacher = teacherService.getById(course.getTeacherId());
+        if (ObjectUtil.isNotNull(teacher)) {
+            course.getParam().put("teacherName", teacher.getName());
+        }
+        // 查询分类名称
+        Subject subjectOne = subjectService.getById(course.getSubjectParentId());
+        if (ObjectUtil.isNotNull(subjectOne)) {
+            course.getParam().put("subjectParentTitle", subjectOne.getTitle());
+        }
+        Subject subjectTwo = subjectService.getById(course.getSubjectId());
+        if (ObjectUtil.isNotNull(subjectTwo)) {
+            course.getParam().put("subjectTitle", subjectTwo.getTitle());
+        }
     }
 }
