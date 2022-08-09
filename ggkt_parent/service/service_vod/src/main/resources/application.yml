@@ -37,8 +37,4 @@ mybatis-plus:
 # 阿里云Oss服务配置类
 ggkt:
   oss:
-    accessId: LTAI5t8YE9eiBqdMX8uZG2oY
-    accessSecret: HYyoSjMnaHHRDMoIoyVhODWxw1U6uG
-    bucketName: ggkt-leahana
-    url: https://ggkt-leahana.oss-cn-hangzhou.aliyuncs.com/
-    endpoint: https://oss-cn-hangzhou.aliyuncs.com
+
