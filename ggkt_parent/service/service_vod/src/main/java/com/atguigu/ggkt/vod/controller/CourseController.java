@@ -4,6 +4,7 @@ package com.atguigu.ggkt.vod.controller;
 import com.atguigu.ggkt.interfacle.Result;
 import com.atguigu.ggkt.model.vod.Course;
 import com.atguigu.ggkt.vo.vod.CourseFormVo;
+import com.atguigu.ggkt.vo.vod.CoursePublishVo;
 import com.atguigu.ggkt.vo.vod.CourseQueryVo;
 import com.atguigu.ggkt.vo.vod.CourseVo;
 import com.atguigu.ggkt.vo.vod.TeacherQueryVo;
@@ -16,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,6 +97,33 @@ public class CourseController {
        courseService.updateCourseId(courseFormVo);
         return Result.ok(courseFormVo.getId());
 
+    }
+
+    @ApiOperation("根据id获取课程发布信息")
+    @GetMapping("getCoursePublishVo/{id}")
+    public Result getCoursePublishVoById(
+            @ApiParam(value = "课程ID", required = true)
+            @PathVariable Long id){
+
+        CoursePublishVo coursePublishVo = courseService.getCoursePublishVo(id);
+        return Result.ok(coursePublishVo);
+    }
+
+    @ApiOperation("根据id发布课程")
+    @PutMapping("publishCourseById/{id}")
+    public Result publishCourseById(
+            @ApiParam(value = "课程ID", required = true)
+            @PathVariable Long id){
+
+        boolean result = courseService.publishCourseById(id);
+        return Result.ok();
+    }
+
+    @ApiOperation(value = "删除课程")
+    @DeleteMapping("remove/{id}")
+    public Result remove(@PathVariable Long id) {
+        courseService.removeCourseById(id);
+        return Result.ok();
     }
 }
 

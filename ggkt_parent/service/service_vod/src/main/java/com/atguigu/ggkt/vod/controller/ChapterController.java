@@ -31,7 +31,7 @@ import java.util.List;
  */
 @Api("课程")
 @RestController
-@RequestMapping("/vod/chapter")
+@RequestMapping("/admin/vod/chapter")
 @CrossOrigin
 public class ChapterController {
 
