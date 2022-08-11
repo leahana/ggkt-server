@@ -56,10 +56,15 @@ public class VideoController {
         return Result.ok(null);
     }
 
+    /**
+     * 根据id 删除小节
+     * @param id 小节id
+     * @return 操作结果
+     */
     @ApiOperation(value = "删除")
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id) {
-        videoService.removeById(id);
+        videoService.removeVideoById(id);
         return Result.ok(null);
     }
 }

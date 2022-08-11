@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.atguigu.autoconfig.OssConfiguration
+  com.atguigu.autoconfig.OssConfiguration,\
+  com.atguigu.autoconfig.VodConfiguration

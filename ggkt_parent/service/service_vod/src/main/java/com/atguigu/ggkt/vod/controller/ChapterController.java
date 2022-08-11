@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -87,7 +88,7 @@ public class ChapterController {
      * @return 操作结果
      */
     @ApiOperation("修改-更新数据")
-    @PostMapping("update")
+    @PutMapping("update")
     public Result update(
             @ApiParam(value = "修改的章节信息", required = true)
             @RequestBody Chapter chapter) {

@@ -104,7 +104,6 @@ public class CourseController {
     public Result getCoursePublishVoById(
             @ApiParam(value = "课程ID", required = true)
             @PathVariable Long id){
-
         CoursePublishVo coursePublishVo = courseService.getCoursePublishVo(id);
         return Result.ok(coursePublishVo);
     }
