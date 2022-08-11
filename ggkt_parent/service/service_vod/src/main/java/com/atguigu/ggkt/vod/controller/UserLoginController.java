@@ -22,7 +22,7 @@ import java.util.Map;
 @Api("用户登录")
 @RestController
 @RequestMapping("/admin/vod/user")
-@CrossOrigin // 跨域
+//@CrossOrigin // 跨域
 public class UserLoginController {
 
     /**

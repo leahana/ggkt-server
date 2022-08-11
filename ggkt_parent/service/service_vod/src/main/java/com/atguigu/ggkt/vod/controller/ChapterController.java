@@ -33,7 +33,7 @@ import java.util.List;
 @Api("课程")
 @RestController
 @RequestMapping("/admin/vod/chapter")
-@CrossOrigin
+//@CrossOrigin
 public class ChapterController {
 
     @Autowired

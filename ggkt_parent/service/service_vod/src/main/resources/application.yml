@@ -4,7 +4,7 @@ server:
 spring:
   application:
     # 服务名
-    name: service_vod
+    name: service-vod
   profiles:
     # 环境配置： dev test prod
     active: dev
@@ -38,3 +38,15 @@ mybatis-plus:
 # 阿里云Oss服务配置类
 ggkt:
   oss:
+    accessId: x
+    accessSecret: x
+    bucketName: x
+    url: x/
+    endpoint: x
+  vod:
+    secretId: x
+    secretKey: x
+    region: ap-x
+    procedure: x
+#  token:
+#  ignoreCheck:
