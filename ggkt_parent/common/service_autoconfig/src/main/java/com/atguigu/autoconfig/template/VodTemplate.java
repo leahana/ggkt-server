@@ -40,7 +40,7 @@ public class VodTemplate {
             //视频本地地址
             log.info("originalFilename={}", originalFilename);
             // todo： 腾讯云vod上传参数只能用本地文件名的方式？？？？？
-            //request.setMediaFilePath("/Users/anshengyo/Downloads/连锁攻击！！.MOV");
+            request.setMediaFilePath("/Users/anshengyo/Downloads/连锁攻击！！.MOV");
             //指定任务流
             request.setProcedure("LongVideoPreset");
             //调用上传方法，传入接入点地域及上传请求。

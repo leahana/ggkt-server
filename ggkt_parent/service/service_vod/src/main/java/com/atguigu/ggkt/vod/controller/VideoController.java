@@ -67,5 +67,7 @@ public class VideoController {
         videoService.removeVideoById(id);
         return Result.ok(null);
     }
+
+
 }
 

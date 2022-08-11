@@ -1,4 +1,5 @@
 package com.atguigu.ggkt.vod.service.impl;
+
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -30,6 +31,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
 
     /**
      * 删除课程，删除所有课程相关视频
+     *
      * @param id 课程id
      */
     @Override
@@ -40,7 +42,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
         if (CollectionUtil.isNotEmpty(videos)) {
             for (Video video : videos) {
                 String videoSourceId = video.getVideoSourceId();
-                if (StrUtil.isNotEmpty(videoSourceId)){
+                if (StrUtil.isNotEmpty(videoSourceId)) {
                     vodTemplate.removeVideo(videoSourceId);
                 }
             }
@@ -50,20 +52,36 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
 
     /**
      * 删除小节和小节视频
+     *
      * @param id 课程小节id
      */
     @Override
-    public void removeVideoById(Long id) {
+    public void removeVideoByChapterId(Long id) {
         LambdaQueryWrapper<Video> lqw = new LambdaQueryWrapper<>();
         lqw.eq(Video::getChapterId, id);
         Video one = getOne(lqw);
-        if (ObjectUtil.isNotNull(one)){
+        if (ObjectUtil.isNotNull(one)) {
             String videoSourceId = one.getVideoSourceId();
-            if (StrUtil.isNotEmpty(videoSourceId)){
+            if (StrUtil.isNotEmpty(videoSourceId)) {
                 vodTemplate.removeVideo(videoSourceId);
             }
         }
         remove(lqw);
     }
 
+    /**
+     * 根据课时id 删除课时
+     * @param id 课时id
+     */
+    @Override
+    public void removeVideoById(Long id) {
+        Video byId = getById(id);
+        if (ObjectUtil.isNotNull(byId)) {
+            String videoSourceId = byId.getVideoSourceId();
+            if (StrUtil.isNotEmpty(videoSourceId)) {
+                vodTemplate.removeVideo(videoSourceId);
+            }
+            removeById(id);
+        }
+    }
 }

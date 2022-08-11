@@ -83,4 +83,14 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
         remove(lqw);
     }
 
+
+    /**
+     * 根据章节id删除课时
+     * @param id 章节id
+     */
+    @Override
+    public void removeByChapterId(Long id) {
+        videoService.removeVideoByChapterId(id);
+        removeById(id);
+    }
 }

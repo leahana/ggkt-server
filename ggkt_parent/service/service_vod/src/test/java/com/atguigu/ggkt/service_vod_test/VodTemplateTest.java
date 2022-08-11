@@ -75,4 +75,8 @@ public class VodTemplateTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void testRemoveVideo(){
+        vodTemplate.removeVideo("387702304384298122");
+    }
 }

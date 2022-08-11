@@ -104,9 +104,9 @@ public class ChapterController {
     @ApiOperation("根据id删除")
     @DeleteMapping("remove/{id}")
     public Result remove(
-            @ApiParam(value = "课程ID", required = true)
+            @ApiParam(value = "章节ID", required = true)
             @PathVariable Long id) {
-        chapterService.removeById(id);
+        chapterService.removeByChapterId(id);
         return Result.ok(null);
     }
 
