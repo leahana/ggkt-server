@@ -1,0 +1,27 @@
+ggkt:
+  # 阿里云Oss服务配置
+  oss:
+    accessId: x
+    accessSecret: x
+    bucketName: x
+    url: x
+    endpoint: x
+    enable: true
+
+  # 腾讯vod点播服务配置
+  vod:
+    secretId: x
+    secretKey: x
+    region: x
+    procedure: x
+    enable: true
+#  token:
+#  ignoreCheck:
+
+  # 阿里云发送短信服务
+  sms:
+    region: x
+    accessId: x
+    accessSecret: x
+    enable: true
+

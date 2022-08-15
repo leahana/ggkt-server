@@ -35,18 +35,33 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #  mapper-locations: classpath:com/atguigu/ggkt/vod/mapper/xml/*.xml
-# 阿里云Oss服务配置类
+
+#第三方服务配置
 ggkt:
+  # 阿里云Oss服务配置
   oss:
     accessId: x
     accessSecret: x
     bucketName: x
-    url: x/
+    url: x
     endpoint: x
+    # 允许加载bean
+    enable: true
+
+  # 腾讯vod点播服务配置
   vod:
     secretId: x
     secretKey: x
-    region: ap-x
+    region: x
     procedure: x
-#  token:
-#  ignoreCheck:
+    enable: true
+  #  token:
+  #  ignoreCheck:
+
+  # 阿里云发送短信服务
+  sms:
+    region: x
+    accessId: x
+    accessSecret: x
+    enable: true
+
