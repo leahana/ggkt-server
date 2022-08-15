@@ -69,7 +69,7 @@ public class VodTemplateTest {
         sign.setSignValidDuration(3600 * 24 * 2); // 签名有效期：2天
         try {
             String signature = sign.getUploadSignature();
-            log.info("获取签名成功：signature ={}" + signature);
+            log.info("获取签名成功：signature ={}" ,signature);
         } catch (Exception e) {
             log.info("获取签名失败");
             e.printStackTrace();

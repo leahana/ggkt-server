@@ -4,6 +4,7 @@ import com.atguigu.autoconfig.properties.SmsProperties;
 
 import com.atguigu.autoconfig.template.SmsTemplate;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 public class SmsConfiguration {
 
     @Bean
+    @ConditionalOnProperty(prefix = "ggkt.sms", value = "enable", havingValue = "true")
     public SmsTemplate smsTemplate(SmsProperties properties){
         return new SmsTemplate(properties);
     }

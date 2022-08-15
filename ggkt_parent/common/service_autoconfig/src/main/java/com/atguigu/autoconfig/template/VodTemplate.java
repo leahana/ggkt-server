@@ -24,10 +24,18 @@ import java.util.Random;
 @Slf4j
 public class VodTemplate {
 
-    private final VodProperties properties;
+    private VodProperties properties;
+
+    private VodUploadClient client;
 
     public VodTemplate(VodProperties properties) {
         this.properties = properties;
+        try {
+            client = new VodUploadClient(properties.getSecretId(), properties.getSecretKey());
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("VodTemplate初始化失败");
+        }
     }
 
     public String uploadVideo(InputStream inputStream, String originalFilename) {
@@ -89,7 +97,7 @@ public class VodTemplate {
             log.info("signature : " + signature);
             return signature;
         } catch (Exception e) {
-            log.info("获取签名失败");
+            log.error("获取签名失败");
             e.printStackTrace();
             throw new GgktException(20001, "获取签名失败");
         }

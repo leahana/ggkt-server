@@ -31,11 +31,14 @@ private OSS ossClient;
             this.properties = properties;
             // Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
             String endpoint = properties.getEndpoint();
+
             // 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
             String accessKeyId = properties.getAccessId();
             String accessKeySecret = properties.getAccessSecret();
+
             // 填写Bucket名称，例如examplebucket。
             this.bucketName = properties.getBucketName();
+
             // 创建OSSClient实例。
             ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         } catch (Exception e) {
