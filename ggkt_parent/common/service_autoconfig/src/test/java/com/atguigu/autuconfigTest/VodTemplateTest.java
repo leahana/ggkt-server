@@ -1,9 +1,9 @@
-package com.atguigu.ggkt.service_vod_test;
+package com.atguigu.autuconfigTest;
 
+import com.atguigu.AutoConfigTestApplication;
 import com.atguigu.autoconfig.properties.VodProperties;
 import com.atguigu.autoconfig.template.VodTemplate;
 import com.atguigu.ggkt.utils.Signature;
-import com.atguigu.ggkt.vod.ServiceVodApplication;
 import com.qcloud.vod.VodUploadClient;
 import com.qcloud.vod.model.VodUploadRequest;
 import com.qcloud.vod.model.VodUploadResponse;
@@ -22,7 +22,7 @@ import java.util.Random;
  * @Desc: 云点播组件测试模块
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ServiceVodApplication.class)
+@SpringBootTest(classes = AutoConfigTestApplication.class)
 @Slf4j
 public class VodTemplateTest {
 
@@ -65,7 +65,7 @@ public class VodTemplateTest {
         sign.setSecretId(properties.getSecretId());
         sign.setSecretKey(properties.getSecretKey());
         sign.setCurrentTime(System.currentTimeMillis() / 1000);
-        sign.setRandom(new Random().nextInt(java.lang.Integer.MAX_VALUE));
+        sign.setRandom(new Random().nextInt(Integer.MAX_VALUE));
         sign.setSignValidDuration(3600 * 24 * 2); // 签名有效期：2天
         try {
             String signature = sign.getUploadSignature();

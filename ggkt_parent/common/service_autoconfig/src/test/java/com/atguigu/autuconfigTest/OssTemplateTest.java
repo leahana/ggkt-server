@@ -1,7 +1,7 @@
-package com.atguigu.ggkt.service_vod_test;
+package com.atguigu.autuconfigTest;
 
+import com.atguigu.AutoConfigTestApplication;
 import com.atguigu.autoconfig.template.OssTemplate;
-import com.atguigu.ggkt.vod.ServiceVodApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 /**
  * @Author: LeahAna
@@ -19,7 +18,7 @@ import java.io.InputStream;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ServiceVodApplication.class)
+@SpringBootTest(classes = AutoConfigTestApplication.class)
 public class OssTemplateTest {
 
     @Autowired
@@ -27,7 +26,7 @@ public class OssTemplateTest {
 
     @Test
     public void uploadTest() throws FileNotFoundException {
-        String path = "/Users/anshengyo/Downloads/IMG_3388.JPG";
+        String path = "/Users/anshengyo/Downloads/IMG_0570.JPG";
         FileInputStream is = new FileInputStream(path);
 
         String imageUrl = ossTemplate.upload(path, is);

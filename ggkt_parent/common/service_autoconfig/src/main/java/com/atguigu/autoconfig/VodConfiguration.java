@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * @Author: LeahAna
  * @Date: 2022/8/11 11:04
- * @Desc: 腾讯云点播服务类
+ * @Desc: 腾讯云点播服务配置类
  */
 @EnableConfigurationProperties(value = {VodProperties.class})
 public class VodConfiguration {

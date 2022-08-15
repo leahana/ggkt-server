@@ -2,6 +2,7 @@ package com.atguigu.autoconfig;
 
 import com.atguigu.autoconfig.properties.OssProperties;
 import com.atguigu.autoconfig.template.OssTemplate;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -12,7 +13,9 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableConfigurationProperties(value = {OssProperties.class})
 public class OssConfiguration {
+
         @Bean
+        @ConditionalOnProperty(prefix = "ggkt.oss", value = "enable", havingValue = "true")
         public OssTemplate ossTemplate(OssProperties properties) {
                 return new OssTemplate(properties);
         }
