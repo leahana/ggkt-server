@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 /**
  * @Author: LeahAna
  * @Date: 2022/7/8 10:50
- * @Desc: service_vod 启动类
+ * @Desc: service-vod 启动类
  */
 @Slf4j
 @ComponentScan("com.atguigu")
@@ -19,7 +19,7 @@ public class ServiceVodApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ServiceVodApplication.class, args);
-        log.info("service_vod start ! ! !");
+        log.info("service-vod start ・・ ・ー・・ ーーー ・・・ー ・ ー・ーー ーーー ・・ー");
      }
 }
 

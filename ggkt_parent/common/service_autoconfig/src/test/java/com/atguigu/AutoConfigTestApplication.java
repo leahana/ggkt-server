@@ -16,7 +16,7 @@ exclude = DataSourceAutoConfiguration.class)
 public class AutoConfigTestApplication {
     public static void main(String[] args) {
         SpringApplication.run(AutoConfigTestApplication.class, args);
-        log.info("AutoConfigTestApplication start・・ ・ー・・ ーーー ・・・ー ・ ー・ーー ーーー ・・ー");
+        log.info("AutoConfigTest start・・ ・ー・・ ーーー ・・・ー ・ ー・ーー ーーー ・・ー");
     }
 }
 
