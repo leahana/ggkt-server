@@ -1,5 +1,6 @@
 package com.atguigu.autuconfigTest;
 
+import cn.hutool.core.date.DateUtil;
 import com.atguigu.AutoConfigTestApplication;
 import com.atguigu.autoconfig.template.SmsTemplate;
 import org.junit.Test;
@@ -24,5 +25,9 @@ public class SmsTemplateTest {
     @Test
     public void testSendMsm() {
         template.sendSms("17714538023");
-    };
+    }
+    @Test
+    public void testDateUtil(){
+        System.out.println(DateUtil.now());;
+    }
 }
