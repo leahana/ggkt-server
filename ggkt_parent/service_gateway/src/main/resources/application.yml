@@ -11,7 +11,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 125.124.10.132:8848
+        server-addr: localhost:8848
     # 使用服务发现路由
     gateway:
       discovery:
