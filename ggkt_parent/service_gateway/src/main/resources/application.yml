@@ -19,9 +19,14 @@ spring:
           enabled: true
       routes:
         #设置路由id
-        - id: service_vod
+        - id: service-vod
           #设置路由的uri
           uri: lb://service-vod
           #设置路由断言,代理service Id为auth-service的/auth/路径
           predicates:
             - Path=/*/vod/**
+        - id: service-order
+          uri: lb://service-order
+          predicates:
+            - Path=/*/order/**
+
